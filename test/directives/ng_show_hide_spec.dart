@@ -35,6 +35,14 @@ void testShowHideDirectives() {
       expect(element.getAttribute('aria-hidden')).toEqual('true');
     }));
 
+
+    it('should not change aria-hidden if it is already present on ng-show', compileComponent('<div ng-show="val" aria-hidden="userSetValue"></div>', {
+    }, (Scope scope, dom.HtmlElement element) {
+      expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
+
+      scope.apply('val = true');
+      expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
+    }));
   });
 }
 

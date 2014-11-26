@@ -6,7 +6,9 @@
 
 library angular.aria;
 
-import "package:angular/angular.dart";
+import 'package:angular/angular.dart';
+
+import 'package:angular_aria/directives/module.dart';
 
 /*
  * Angular Aria Module
@@ -14,6 +16,6 @@ import "package:angular/angular.dart";
 class AngularAriaModule extends Module {
 
   AngularAriaModule() {
-
+    install(new AngularAriaDirectivesModule());
   }
 }

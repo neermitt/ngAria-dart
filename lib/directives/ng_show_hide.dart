@@ -7,36 +7,40 @@ part of angular.aria.directive;
 
 @Decorator(
     selector: '[ng-hide]',
-    map: const {'ng-hide': '=>hide'})
+    map: const {
+        'ng-hide': '=>hide'
+    })
 class NgHide {
   final dom.Element element;
-  final Animate animate;
+  final bool ignore;
 
-  NgHide(this.element, this.animate);
+  NgHide(dom.Element element) : element = element,
+  ignore = element.attributes.containsKey('aria-hidden') {
+  }
 
   set hide(value) {
-    if (toBool(value)) {
-      element.setAttribute('aria-hidden', 'true');
-    } else {
-      element.setAttribute('aria-hidden', 'false');
+    if (!ignore) {
+      element.setAttribute('aria-hidden', toBool(value).toString());
     }
   }
 }
 
 @Decorator(
     selector: '[ng-show]',
-    map: const {'ng-show': '=>show'})
+    map: const {
+        'ng-show': '=>show'
+    })
 class NgShow {
   final dom.Element element;
-  final Animate animate;
+  final bool ignore;
 
-  NgShow(this.element, this.animate);
+  NgShow(dom.Element element) : element = element,
+  ignore = element.attributes.containsKey('aria-hidden') {
+  }
 
   set show(value) {
-    if (toBool(value)) {
-      element.setAttribute('aria-hidden', 'false');
-    } else {
-      element.setAttribute('aria-hidden', 'true');
+    if (!ignore) {
+      element.setAttribute('aria-hidden', (!toBool(value)).toString());
     }
   }
 }
