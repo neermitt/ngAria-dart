@@ -1,0 +1,13 @@
+name: angular_aria
+version: '0.1.0'
+authors:
+- Neeraj Mittal <mittal.neeraj@gmail.com>
+description: Angular Aria for dart.
+environment:
+  sdk: '>=1.4.0'
+dependencies:
+  angular: '>=1.0.0 <2.0.0'
+dev_dependencies:
+  guinness: '>=0.1.9 <0.2.0'
+  mock: '>=0.10.0 <0.12.0'
+  unittest: '>=0.10.1 <0.12.0'
