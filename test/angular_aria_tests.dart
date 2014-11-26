@@ -14,27 +14,23 @@ import 'package:angular/angular.dart';
 import 'package:angular/mock/module.dart';
 import 'package:angular/mock/test_injection.dart';
 
+import 'package:angular_aria/directives/module.dart';
+
+part 'directives/ng_show_hide_spec.dart';
+
 main() {
   guinnessEnableHtmlMatchers();
 
+  testShowHideDirectives();
+
   guinness.initSpecs();
-}
-
-loadTemplates(List<String> templates) {
-  updateCache(template, response) => inject((TemplateCache cache) => cache.put(template, response));
-
-  final futures = templates.map((template) =>
-  dom.HttpRequest.request('packages/angular_ui/' + template, method: "GET").
-  then((_) => updateCache(template, new HttpResponse(200, _.response))));
-
-  return Future.wait(futures);
 }
 
 compileComponent(String html, Map scope, callback) {
   return async(() {
     inject((TestBed tb) {
       final s = tb.rootScope.createChild(scope);
-      final el = tb.compile('<div>$html</div>', scope: s);
+      final el = tb.compile(html, scope: s);
 
       microLeap();
       digest();
