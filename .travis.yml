@@ -3,5 +3,8 @@ node_js:
   - "0.11"
 before_install:
   - export DISPLAY=:99.0
+
+before_script:
+  - chmod +x ./scripts/travis/run_tests.sh
 script:
   - ./scripts/travis/run_tests.sh
