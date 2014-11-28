@@ -3,44 +3,40 @@
  * https://github.com/neermitt/ngAria-dart
  * All rights reserved.  Please see the LICENSE.md file.
  */
-part of angular.aria.directive;
+part of angular.aria.directives;
 
-@Decorator(
-    selector: '[ng-hide]',
-    map: const {
-        'ng-hide': '=>hide'
-    })
+@Decorator(selector: '[ng-hide]')
 class NgHide {
   final dom.Element element;
-  final bool ignore;
+  final Scope scope;
+  bool userSpecified;
 
-  NgHide(dom.Element element) : element = element,
-  ignore = element.attributes.containsKey('aria-hidden') {
+  NgHide(dom.Element this.element, Scope this.scope) {
+    userSpecified = element.attributes.containsKey('aria-hidden');
   }
 
+  @NgOneWay('ng-hide')
   set hide(value) {
-    if (!ignore) {
-      element.setAttribute('aria-hidden', toBool(value).toString());
+    if (!userSpecified) {
+      scope.rootScope.domWrite(() =>element.setAttribute('aria-hidden', toBool(value).toString()));
     }
   }
 }
 
-@Decorator(
-    selector: '[ng-show]',
-    map: const {
-        'ng-show': '=>show'
-    })
+@Decorator(selector: '[ng-show]')
 class NgShow {
   final dom.Element element;
-  final bool ignore;
+  final Scope scope;
+  bool userSpecified;
 
-  NgShow(dom.Element element) : element = element,
-  ignore = element.attributes.containsKey('aria-hidden') {
+  NgShow(dom.Element this.element, Scope this.scope) {
+    userSpecified = element.attributes.containsKey('aria-hidden');
   }
 
+  @NgOneWay('ng-show')
   set show(value) {
-    if (!ignore) {
-      element.setAttribute('aria-hidden', (!toBool(value)).toString());
+    if (!userSpecified) {
+      scope.rootScope.domWrite(() =>element.setAttribute('aria-hidden', (!toBool(value)).toString()));
     }
   }
 }

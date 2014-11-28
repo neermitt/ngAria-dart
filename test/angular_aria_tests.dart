@@ -17,11 +17,13 @@ import 'package:angular/mock/test_injection.dart';
 import 'package:angular_aria/directives/module.dart';
 
 part 'directives/ng_show_hide_spec.dart';
+part 'directives/input_checkbox_spec.dart';
 
 main() {
   guinnessEnableHtmlMatchers();
 
   testShowHideDirectives();
+  testInputCheckboxDirectives();
 
   guinness.initSpecs();
 }
