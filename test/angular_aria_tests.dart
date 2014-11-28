@@ -7,7 +7,6 @@ library angular_aria_test;
 
 
 import 'package:guinness/guinness_html.dart';
-import 'dart:async';
 import 'dart:html' as dom;
 
 import 'package:angular/angular.dart';
@@ -18,12 +17,14 @@ import 'package:angular_aria/directives/module.dart';
 
 part 'directives/ng_show_hide_spec.dart';
 part 'directives/input_checkbox_spec.dart';
+part 'directives/input_radio_spec.dart';
 
 main() {
   guinnessEnableHtmlMatchers();
 
   testShowHideDirectives();
   testInputCheckboxDirectives();
+  testInputRadioDirectives();
 
   guinness.initSpecs();
 }

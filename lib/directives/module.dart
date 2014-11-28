@@ -11,6 +11,7 @@ import 'package:angular/utils.dart';
 
 part 'ng_show_hide.dart';
 part 'input_checkbox.dart';
+part 'input_radio.dart';
 
 /*
  * AngularAria Directives module
@@ -21,5 +22,6 @@ class AngularAriaDirectivesModule extends Module{
     bind(NgHide, toValue: null);
     bind(NgShow, toValue: null);
     bind(InputCheckbox, toValue: null);
+    bind(InputRadio, toValue: null);
   }
 }
