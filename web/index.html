@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (C) - 2014 Angular Material Dart authors. Please see AUTHORS.md.
+  ~ https://github.com/neermitt/ngAria-dart
+  ~ All rights reserved.  Please see the LICENSE.md file.
+  -->
+
+<html ng-app>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular Aria Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="packages/angular/css/angular.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body ng-cloak>
+
+<h1>Angular Aria Demo</h1>
+
+<div>
+    <h3>aria-hidden</h3>
+
+    <div>
+        <label>
+            <input type="checkbox" ng-model="checked1" aria-label="check me"> check me
+        </label>
+
+        <div ng-show="checked1" aria-label="ng-show-demo" show-attrs>Show this text when checked</div>
+        <div ng-hide="checked1" aria-label="ng-hide-demo" show-attrs>Hide this text when checked</div>
+    </div>
+
+    <h3>aria-checked</h3>
+
+    <div>
+        <label>
+            <input type="checkbox" ng-model="checked2" aria-label="check me" show-attrs> check me
+        </label>
+    </div>
+
+    <div>
+        <form>
+            <my-checkbox role="checkbox" ng-model="checked3" ng-class="{active: checked3}" aria-label="Custom Checkbox"
+                         show-attrs>
+                <span class="icon" aria-hidden="true"></span>
+                Custom Checkbox
+            </my-checkbox>
+        </form>
+    </div>
+</div>
+
+
+<script type="application/dart" src="main.dart"></script>
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>

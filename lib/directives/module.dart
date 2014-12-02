@@ -3,6 +3,7 @@
  * https://github.com/neermitt/ngAria-dart
  * All rights reserved.  Please see the LICENSE.md file.
  */
+
 library angular.aria.directives;
 
 import 'dart:html' as dom;
@@ -23,5 +24,6 @@ class AngularAriaDirectivesModule extends Module{
     bind(NgShow, toValue: null);
     bind(InputCheckbox, toValue: null);
     bind(InputRadio, toValue: null);
+    bind(RoleRadio, toValue: null);
   }
 }

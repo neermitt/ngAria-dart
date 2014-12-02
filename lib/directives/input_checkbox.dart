@@ -7,6 +7,8 @@
 part of angular.aria.directives;
 
 @Decorator(selector: 'input[type=checkbox][ng-model]')
+@Decorator(selector: '[role=checkbox][ng-model]')
+@Decorator(selector: '[role=menuitemcheckbox][ng-model]')
 class InputCheckbox {
   final Scope scope;
   final dom.Element element;
