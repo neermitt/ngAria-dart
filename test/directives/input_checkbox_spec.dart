@@ -4,7 +4,7 @@
  * All rights reserved.  Please see the LICENSE.md file.
  */
 
-part of angular_aria_test;
+part of angular.aria.test;
 
 void testInputCheckboxDirectives() {
   describe('aria-checked', () {

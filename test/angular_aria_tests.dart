@@ -3,7 +3,8 @@
  * https://github.com/neermitt/ngAria-dart
  * All rights reserved.  Please see the LICENSE.md file.
  */
-library angular_aria_test;
+
+library angular.aria.test;
 
 
 import 'package:guinness/guinness_html.dart';
@@ -18,6 +19,8 @@ import 'package:angular_aria/directives/module.dart';
 part 'directives/ng_show_hide_spec.dart';
 part 'directives/input_checkbox_spec.dart';
 part 'directives/input_radio_spec.dart';
+part 'directives/ng_disabled_spec.dart';
+part 'directives/ng_model_spec.dart';
 
 main() {
   guinnessEnableHtmlMatchers();
@@ -25,6 +28,8 @@ main() {
   testShowHideDirectives();
   testInputCheckboxDirectives();
   testInputRadioDirectives();
+  testNgDiabledDirectives();
+  testNgModelDirectives();
 
   guinness.initSpecs();
 }

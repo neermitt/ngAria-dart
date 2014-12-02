@@ -4,7 +4,7 @@
  * All rights reserved.  Please see the LICENSE.md file.
  */
 
-part of angular_aria_test;
+part of angular.aria.test;
 
 void testShowHideDirectives() {
   describe('aria-hidden', () {
@@ -14,7 +14,7 @@ void testShowHideDirectives() {
     beforeEach(() {
       module((Module _) => _
         ..install(new AngularAriaDirectivesModule())
-      );
+             );
     });
 
     it('should attach aria-hidden to ng-show', compileComponent('<div ng-show="val"></div>', {
@@ -36,13 +36,14 @@ void testShowHideDirectives() {
     }));
 
 
-    it('should not change aria-hidden if it is already present on ng-show', compileComponent('<div ng-show="val" aria-hidden="userSetValue"></div>', {
-    }, (Scope scope, dom.HtmlElement element) {
-      expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
+    it('should not change aria-hidden if it is already present on ng-show',
+       compileComponent('<div ng-show="val" aria-hidden="userSetValue"></div>', {
+       }, (Scope scope, dom.HtmlElement element) {
+         expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
 
-      scope.apply('val = true');
-      expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
-    }));
+         scope.apply('val = true');
+         expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
+       }));
   });
 }
 
