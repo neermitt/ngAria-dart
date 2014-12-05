@@ -8,4 +8,29 @@ part of angular.aria.test;
 
 void testNgModelDirectives() {
 
+  describe('aria-invalid', () {
+    beforeEach(setUpInjector);
+    afterEach(tearDownInjector);
+
+    beforeEach(() {
+      module((Module _) => _
+        ..install(new AngularAriaDirectivesModule())
+      );
+    });
+
+    it('should attach aria-invalid to input', compileComponent('<input ng-model="txtInput" ng-minlength="10">', {
+        'txtInput': 'LTten'
+    }, (Scope scope, dom.HtmlElement element) {
+      expect(element.getAttribute('aria-invalid')).toEqual('true');
+
+      scope.apply('txtInput = "morethantencharacters"');
+      expect(element.getAttribute('aria-invalid')).toEqual('false');
+    }));
+
+    it('should not attach itself if aria-invalid is already present', compileComponent('<input ng-model="txtInput" ng-minlength="10" aria-invalid="userSetValue">', {
+        'txtInput': 'LTten'
+    }, (Scope scope, dom.HtmlElement element) {
+      expect(element.getAttribute('aria-invalid')).toEqual('userSetValue');
+    }));
+  });
 }
