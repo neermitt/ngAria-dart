@@ -15,6 +15,7 @@ part 'input_checkbox.dart';
 part 'input_radio.dart';
 part 'ng_disabled.dart';
 part 'ng_model.dart';
+part 'ng_required.dart';
 
 /*
  * AngularAria Directives module
@@ -29,5 +30,6 @@ class AngularAriaDirectivesModule extends Module{
     bind(RoleRadio, toValue: null);
     bind(NgDisabled, toValue: null);
     bind(NgModelAria, toValue: null);
+    bind(NgRequiredAria, toValue: null);
   }
 }

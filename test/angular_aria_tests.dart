@@ -21,6 +21,7 @@ part 'directives/input_checkbox_spec.dart';
 part 'directives/input_radio_spec.dart';
 part 'directives/ng_disabled_spec.dart';
 part 'directives/ng_model_spec.dart';
+part 'directives/ng_required_spec.dart';
 
 main() {
   guinnessEnableHtmlMatchers();
@@ -30,6 +31,7 @@ main() {
   testInputRadioDirectives();
   testNgDiabledDirectives();
   testNgModelDirectives();
+  testNgRequiredDirectives();
 
   guinness.initSpecs();
 }
