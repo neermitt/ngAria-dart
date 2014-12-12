@@ -16,13 +16,14 @@ part 'input_radio.dart';
 part 'ng_disabled.dart';
 part 'ng_model.dart';
 part 'ng_required.dart';
+part 'ng_aria_multiline.dart';
 
 /*
  * AngularAria Directives module
  */
-class AngularAriaDirectivesModule extends Module{
+class AngularAriaDirectivesModule extends Module {
 
-  AngularAriaDirectivesModule(){
+  AngularAriaDirectivesModule() {
     bind(NgHide, toValue: null);
     bind(NgShow, toValue: null);
     bind(InputCheckbox, toValue: null);
@@ -31,5 +32,6 @@ class AngularAriaDirectivesModule extends Module{
     bind(NgDisabled, toValue: null);
     bind(NgModelAria, toValue: null);
     bind(NgRequiredAria, toValue: null);
+    bind(NgAriaMultiline, toValue: null);
   }
 }

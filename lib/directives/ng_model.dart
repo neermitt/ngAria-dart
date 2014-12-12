@@ -4,7 +4,7 @@
  * All rights reserved.  Please see the LICENSE.md file.
  */
 
-part of angular.aria;
+part of angular.aria.directives;
 
 @Decorator(selector:'[ng-model]')
 class NgModelAria {
