@@ -17,6 +17,7 @@ part 'ng_disabled.dart';
 part 'ng_model.dart';
 part 'ng_required.dart';
 part 'ng_aria_multiline.dart';
+part 'ng_aria_value.dart';
 
 /*
  * AngularAria Directives module
@@ -33,5 +34,6 @@ class AngularAriaDirectivesModule extends Module {
     bind(NgModelAria, toValue: null);
     bind(NgRequiredAria, toValue: null);
     bind(NgAriaMultiline, toValue: null);
+    bind(NgAriaValue, toValue: null);
   }
 }

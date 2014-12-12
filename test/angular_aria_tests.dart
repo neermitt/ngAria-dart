@@ -23,6 +23,7 @@ part 'directives/ng_disabled_spec.dart';
 part 'directives/ng_model_spec.dart';
 part 'directives/ng_required_spec.dart';
 part 'directives/ng_aria_multiline_spec.dart';
+part 'directives/ng_aria_value_spec.dart';
 
 main() {
   guinnessEnableHtmlMatchers();
@@ -34,6 +35,7 @@ main() {
   testNgModelDirectives();
   testNgRequiredDirectives();
   testAriaMultilineDirectives();
+  testAriaValueDirectives();
 
   guinness.initSpecs();
 }
