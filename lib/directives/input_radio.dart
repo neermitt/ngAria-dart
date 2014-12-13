@@ -9,20 +9,28 @@ part of angular.aria.directives;
 
 @Decorator(selector: 'input[type=radio][ng-model]')
 class InputRadio {
-  final Scope scope;
-  final dom.Element element;
-  final NgValue ngValue;
-  bool userSpecified;
+  final Scope _scope;
+  final dom.Element _element;
+  final NgValue _ngValue;
+  bool _disableAriaChecked;
+  bool _disableTabindex;
 
-  InputRadio(dom.Element this.element, Scope this.scope, NgValue this.ngValue) {
-    userSpecified = element.attributes.containsKey('aria-checked');
+  InputRadio(dom.Element this._element, Scope this._scope, NgValue this._ngValue) {
+    _disableAriaChecked = _element.attributes.containsKey('aria-checked');
+    _disableTabindex = _element.attributes.containsKey('tabindex');
   }
 
   @NgOneWay('ng-model')
   set modelValue(value) {
-    if (!userSpecified) {
-      scope.rootScope.domWrite(() => element.setAttribute('aria-checked', (value == ngValue.value).toString()));
+    var isSelected = value == _ngValue.value;
+    if (!_disableAriaChecked) {
+      _scope.domWrite(() => _element.setAttribute('aria-checked', isSelected.toString()));
     }
+
+    if (!_disableTabindex) {
+      _scope.domWrite(() => _element.setAttribute('tabindex', isSelected ? '0' : '-1'));
+    }
+
   }
 }
 

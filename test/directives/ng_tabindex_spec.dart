@@ -69,5 +69,27 @@ void testNgTabIndexDirectives() {
       }));
     });
 
+    describe('radiogroup', () {
+
+      it('should set proper tabindex values for radiogroup', compileComponent(
+          '<div role="radiogroup"><div role="radio" ng-model="val" value="one">1</div><div role="radio" ng-model="val" value="two">2</div></div>', {
+              'val' : 'one'
+          }, (Scope scope, dom.HtmlElement element) {
+            dom.ElementList elements = element.querySelectorAll('div');
+            expect(elements.elementAt(0).getAttribute('tabindex')).toEqual('0');
+            expect(elements.elementAt(1).getAttribute('tabindex')).toEqual('-1');
+
+            scope.apply('val="two"');
+            expect(elements.elementAt(0).getAttribute('tabindex')).toEqual('-1');
+            expect(elements.elementAt(1).getAttribute('tabindex')).toEqual('0');
+          }));
+
+      it('should not attach tabindex if it is already on an element', compileComponent('<div role="radiogroup"><div role="radio" ng-model="val" value="one" tabindex="userSetValue1">1</div><div role="radio" ng-model="val" value="two" tabindex="userSetValue2">2</div></div>', {
+      }, (Scope scope, dom.HtmlElement element) {
+        dom.ElementList elements = element.querySelectorAll('div');
+        expect(elements.elementAt(0).getAttribute('tabindex')).toEqual('userSetValue1');
+        expect(elements.elementAt(1).getAttribute('tabindex')).toEqual('userSetValue2');
+      }));
+    });
   });
 }
