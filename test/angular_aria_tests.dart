@@ -24,6 +24,7 @@ part 'directives/ng_model_spec.dart';
 part 'directives/ng_required_spec.dart';
 part 'directives/ng_aria_multiline_spec.dart';
 part 'directives/ng_aria_value_spec.dart';
+part 'directives/ng_tabindex_spec.dart';
 
 main() {
   guinnessEnableHtmlMatchers();
@@ -36,6 +37,7 @@ main() {
   testNgRequiredDirectives();
   testAriaMultilineDirectives();
   testAriaValueDirectives();
+  testNgTabIndexDirectives();
 
   guinness.initSpecs();
 }
