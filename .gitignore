@@ -2,6 +2,9 @@
 build/
 packages/
 node_modules/
+.idea/
+.pub/
+
 .buildlog
 
 # Or the files created by dart2js.
@@ -10,6 +13,7 @@ node_modules/
 *.js_
 *.js.deps
 *.js.map
+*.iml
 
 # Include when developing application packages.
 pubspec.lock
