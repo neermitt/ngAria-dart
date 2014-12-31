@@ -20,29 +20,29 @@ void testShowHideDirectives() {
     it('should attach aria-hidden to ng-show', compileComponent('<div ng-show="val"></div>', {
         'val': false
     }, (Scope scope, dom.HtmlElement element) {
-      expect(element.getAttribute('aria-hidden')).toEqual('true');
+      expect(element).toHaveAttribute('aria-hidden', 'true');
 
       scope.apply('val = true');
-      expect(element.getAttribute('aria-hidden')).toEqual('false');
+      expect(element).toHaveAttribute('aria-hidden', 'false');
     }));
 
     it('should attach aria-hidden to ng-hide', compileComponent('<div ng-hide="val"></div>', {
         'val': false
     }, (Scope scope, dom.HtmlElement element) {
-      expect(element.getAttribute('aria-hidden')).toEqual('false');
+      expect(element).toHaveAttribute('aria-hidden', 'false');
 
       scope.apply('val = true');
-      expect(element.getAttribute('aria-hidden')).toEqual('true');
+      expect(element).toHaveAttribute('aria-hidden', 'true');
     }));
 
 
     it('should not change aria-hidden if it is already present on ng-show',
        compileComponent('<div ng-show="val" aria-hidden="userSetValue"></div>', {
        }, (Scope scope, dom.HtmlElement element) {
-         expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
+         expect(element).toHaveAttribute('aria-hidden', 'userSetValue');
 
          scope.apply('val = true');
-         expect(element.getAttribute('aria-hidden')).toEqual('userSetValue');
+         expect(element).toHaveAttribute('aria-hidden', 'userSetValue');
        }));
   });
 }

@@ -6,23 +6,22 @@
 
 part of angular.aria.directives;
 
-@Decorator(selector: 'input[type=checkbox][ng-model]')
-@Decorator(selector: '[role=checkbox][ng-model]')
-@Decorator(selector: '[role=menuitemcheckbox][ng-model]')
-class InputCheckbox {
-  final Scope scope;
-  final dom.Element element;
+@Decorator(selector: 'input[type=checkbox][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+@Decorator(selector: '[role=checkbox][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+@Decorator(selector: '[role=menuitemcheckbox][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+class InputCheckbox extends NgAriaDirective {
   final NgTrueValue trueValue;
-  bool userSpecified;
 
-  InputCheckbox(dom.Element this.element, Scope this.scope, NgTrueValue this.trueValue) {
-    userSpecified = element.attributes.containsKey('aria-checked');
+  InputCheckbox(dom.Element element, Scope scope, NgTrueValue this.trueValue): super(element, scope, 'aria-checked') {
   }
 
-  @NgOneWay('ng-model')
-  set modelValue(value) {
-    if(!userSpecified) {
-      scope.rootScope.domWrite(() => element.setAttribute('aria-checked', trueValue.isValue(value).toString()));
-    }
+  String resolveValue(value) {
+    return trueValue.isValue(value).toString();
   }
 }

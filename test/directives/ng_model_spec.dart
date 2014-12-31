@@ -21,16 +21,16 @@ void testNgModelDirectives() {
     it('should attach aria-invalid to input', compileComponent('<input ng-model="txtInput" ng-minlength="10">', {
         'txtInput': 'LTten'
     }, (Scope scope, dom.HtmlElement element) {
-      expect(element.getAttribute('aria-invalid')).toEqual('true');
+      expect(element).toHaveAttribute('aria-invalid', 'true');
 
       scope.apply('txtInput = "morethantencharacters"');
-      expect(element.getAttribute('aria-invalid')).toEqual('false');
+      expect(element).toHaveAttribute('aria-invalid', 'false');
     }));
 
     it('should not attach itself if aria-invalid is already present', compileComponent('<input ng-model="txtInput" ng-minlength="10" aria-invalid="userSetValue">', {
         'txtInput': 'LTten'
     }, (Scope scope, dom.HtmlElement element) {
-      expect(element.getAttribute('aria-invalid')).toEqual('userSetValue');
+      expect(element).toHaveAttribute('aria-invalid', 'userSetValue');
     }));
   });
 }

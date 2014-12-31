@@ -7,35 +7,26 @@
 part of angular.aria.directives;
 
 
-@Decorator(selector: 'input[type=radio][ng-model]')
-class InputRadio {
-  final Scope _scope;
-  final dom.Element _element;
+@Decorator(selector: 'input[type=radio][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+class InputRadio extends NgAriaDirective {
   final NgValue _ngValue;
-  bool _disableAriaChecked;
-  bool _disableTabindex;
 
-  InputRadio(dom.Element this._element, Scope this._scope, NgValue this._ngValue) {
-    _disableAriaChecked = _element.attributes.containsKey('aria-checked');
-    _disableTabindex = _element.attributes.containsKey('tabindex');
+  InputRadio(dom.Element element, Scope scope, NgValue this._ngValue) : super(element, scope, 'aria-checked') {
   }
 
-  @NgOneWay('ng-model')
-  set modelValue(value) {
-    var isSelected = value == _ngValue.value;
-    if (!_disableAriaChecked) {
-      _scope.domWrite(() => _element.setAttribute('aria-checked', isSelected.toString()));
-    }
-
-    if (!_disableTabindex) {
-      _scope.domWrite(() => _element.setAttribute('tabindex', isSelected ? '0' : '-1'));
-    }
-
+  String resolveValue(value) {
+    return (value == _ngValue.value).toString();
   }
 }
 
-@Decorator(selector: '[role=radio][ng-model]', module: NgRoleValue.module)
-@Decorator(selector: '[role=menuitemradio][ng-model]', module: NgRoleValue.module)
+@Decorator(selector: '[role=radio][ng-model]', module: NgRoleValue.module, map: const {
+    'ng-model': '=>value'
+})
+@Decorator(selector: '[role=menuitemradio][ng-model]', module: NgRoleValue.module, map: const {
+    'ng-model': '=>value'
+})
 class RoleRadio extends InputRadio {
   RoleRadio(dom.Element element, Scope scope, NgRoleValue ngValue): super(element, scope, ngValue);
 }

@@ -21,29 +21,28 @@ void testInputCheckboxDirectives() {
       it('should attach itself to input type="checkbox"', compileComponent('<input type="checkbox" ng-model="val">', {
           'val': true
       }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-checked')).toEqual('true');
+        expect(element).toHaveAttribute('aria-checked', 'true');
 
         scope.apply('val = false');
-        expect(element.getAttribute('aria-checked')).toEqual('false');
+        expect(element).toHaveAttribute('aria-checked', 'false');
       }));
 
       it('should attach itself to input type="checkbox" with ng-true-value',
          compileComponent('<input type="checkbox" ng-model="val" ng-true-value="\'lion\'" ng-false-value="\'goat\'">', {
              'val': 'lion'
          }, (Scope scope, dom.HtmlElement element) {
-           expect(element.getAttribute('aria-checked')).toEqual('true');
-
-           scope.apply('val = goat');
-           expect(element.getAttribute('aria-checked')).toEqual('false');
+           expect(element).toHaveAttribute('aria-checked', 'true');
+           scope.apply('val = "goat"');
+           expect(element).toHaveAttribute('aria-checked', 'false');
          }));
 
       it('should not attach itself if an aria-checked value is already present',
          compileComponent('<input type="checkbox" ng-model="val" aria-checked="userSetValue">', {
          }, (Scope scope, dom.HtmlElement element) {
-           expect(element.getAttribute('aria-checked')).toEqual('userSetValue');
+           expect(element).toHaveAttribute('aria-checked', 'userSetValue');
 
            scope.apply('val = true');
-           expect(element.getAttribute('aria-checked')).toEqual('userSetValue');
+           expect(element).toHaveAttribute('aria-checked', 'userSetValue');
          }));
 
     });
@@ -52,18 +51,18 @@ void testInputCheckboxDirectives() {
       it('should attach itself to role="checkbox"', compileComponent('<div role="checkbox" ng-model="val"></div>', {
           'val': true
       }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-checked')).toEqual('true');
+        expect(element).toHaveAttribute('aria-checked', 'true');
         scope.apply('val = false');
-        expect(element.getAttribute('aria-checked')).toEqual('false');
+        expect(element).toHaveAttribute('aria-checked', 'false');
       }));
 
       it('should not attach itself if an aria-checked value is already present',
          compileComponent('<div role="checkbox" ng-model="val" aria-checked="userSetValue"></div>', {
          }, (Scope scope, dom.HtmlElement element) {
-           expect(element.getAttribute('aria-checked')).toEqual('userSetValue');
+           expect(element).toHaveAttribute('aria-checked', 'userSetValue');
 
            scope.apply('val = true');
-           expect(element.getAttribute('aria-checked')).toEqual('userSetValue');
+           expect(element).toHaveAttribute('aria-checked', 'userSetValue');
          }));
     });
 
@@ -72,18 +71,18 @@ void testInputCheckboxDirectives() {
          compileComponent('<div role="menuitemcheckbox" ng-model="val"></div>', {
              'val': true
          }, (Scope scope, dom.HtmlElement element) {
-           expect(element.getAttribute('aria-checked')).toEqual('true');
+           expect(element).toHaveAttribute('aria-checked', 'true');
            scope.apply('val = false');
-           expect(element.getAttribute('aria-checked')).toEqual('false');
+           expect(element).toHaveAttribute('aria-checked', 'false');
          }));
 
       it('should not attach itself if an aria-checked value is already present',
          compileComponent('<div role="menuitemcheckbox" ng-model="val" aria-checked="userSetValue"></div>', {
          }, (Scope scope, dom.HtmlElement element) {
-           expect(element.getAttribute('aria-checked')).toEqual('userSetValue');
+           expect(element).toHaveAttribute('aria-checked', 'userSetValue');
 
            scope.apply('val = true');
-           expect(element.getAttribute('aria-checked')).toEqual('userSetValue');
+           expect(element).toHaveAttribute('aria-checked', 'userSetValue');
          }));
     });
 

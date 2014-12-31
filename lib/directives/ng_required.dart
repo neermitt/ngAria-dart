@@ -6,23 +6,15 @@
 
 part of angular.aria.directives;
 
-@Decorator(
-    selector: '[ng-model][required]')
-@Decorator(
-    selector: '[ng-model][ng-required]')
-class NgRequiredAria {
+@Decorator(selector: '[ng-model][required]')
+@Decorator(selector: '[ng-model][ng-required]')
+class NgRequiredAria extends NgAriaWatchDirective {
 
+  NgRequiredAria(dom.Element element, Scope scope, NgModel model): super(element, scope, model, 'aria-required') {
+  }
 
-  NgRequiredAria(dom.Element element, Scope scope, NgModel ngModel) {
-
-    if (!element.attributes.containsKey('aria-required')) {
-      Scope child = scope.createProtoChild();
-      child.context['ngAriaRequiredWatch'] = () => ngModel.hasErrorState('ng-required');
-
-      child.watch('ngAriaRequiredWatch()', (value, _) {
-        scope.domWrite(() => element.setAttribute('aria-required', toBool(value).toString()));
-      }, canChangeModel:false);
-    }
+  dynamic get expression {
+    return _model.hasErrorState('ng-required');
   }
 
 }

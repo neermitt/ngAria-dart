@@ -6,29 +6,49 @@
 
 part of angular.aria.directives;
 
-@Decorator(selector: 'input[type=range][ng-model]')
-@Decorator(selector: '[role=progressbar][ng-model]')
-@Decorator(selector: '[role=slider][ng-model]')
-class NgAriaValue {
-  Scope _scope;
-  dom.Element _element;
-  bool _userOverridenValue;
+@Decorator(selector: 'input[type=range][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+@Decorator(selector: '[role=progressbar][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+@Decorator(selector: '[role=slider][ng-model]', map: const {
+    'ng-model': '=>value'
+})
+class NgAriaValue extends NgAriaDirective {
 
-  NgAriaValue(dom.Element this._element, Scope this._scope) {
-    if (!_element.attributes.containsKey('aria-valuemin')) {
-      _scope.domWrite(() => _element.setAttribute('aria-valuemin', _element.getAttribute('min')));
-    }
-    if (!_element.attributes.containsKey('aria-valuemax')) {
-      _scope.domWrite(() => _element.setAttribute('aria-valuemax', _element.getAttribute('max')));
-    }
-    _userOverridenValue = _element.attributes.containsKey('aria-valuenow');
+  NgAriaValue(dom.Element element, Scope scope) : super(element, scope, 'aria-valuenow') {
   }
 
-  @NgOneWay('ng-model')
-  set modelValue(value) {
-    if (!_userOverridenValue) {
-      _scope.domWrite(() => _element.setAttribute('aria-valuenow', value == null ? null : value.toString()));
-    }
+}
+
+@Decorator(selector: 'input[type=range][ng-model][min]', map: const {
+    'min': '=>!value'
+})
+@Decorator(selector: '[role=progressbar][ng-model][min]', map: const {
+    'min': '=>!value'
+})
+@Decorator(selector: '[role=slider][ng-model][min]', map: const {
+    'min': '=>!value'
+})
+class NgAriaMinValue extends NgAriaDirective {
+  NgAriaMinValue(dom.Element element, Scope scope) : super(element, scope, 'aria-valuemin') {
+  }
+
+}
+
+@Decorator(selector: 'input[type=range][ng-model][max]', map: const {
+    'max': '=>!value'
+})
+@Decorator(selector: '[role=progressbar][ng-model][max]', map: const {
+    'max': '=>!value'
+})
+@Decorator(selector: '[role=slider][ng-model][max]', map: const {
+    'max': '=>!value'
+})
+class NgAriaMaxValue extends NgAriaDirective {
+
+  NgAriaMaxValue(dom.Element element, Scope scope) : super(element, scope, 'aria-valuemax') {
   }
 
 }

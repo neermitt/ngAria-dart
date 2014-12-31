@@ -19,69 +19,43 @@ void testNgRequiredDirectives() {
       );
     });
 
-    it('should attach aria-required to input', compileComponent('<input ng-model="val" required>', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('true');
+    void verifyAttached(Scope scope, dom.HtmlElement element) {
+      expect(element).toHaveAttribute('aria-required', 'true');
 
       scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('false');
-    }));
+      expect(element).toHaveAttribute('aria-required', 'false');
+    }
+
+    void verifyNotAttached(Scope scope, dom.HtmlElement element) {
+      expect(element).toHaveAttribute('aria-required', 'userSetValue');
+
+      scope.apply("val='input is valid now'");
+      expect(element).toHaveAttribute('aria-required', 'userSetValue');
+    }
+
+    it('should attach aria-required to input', compileComponent('<input ng-model="val" required>', {
+    }, verifyAttached));
 
     it('should attach aria-required to textarea', compileComponent('<textarea ng-model="val" required></textarea>', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('true');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('false');
-    }));
+    }, verifyAttached));
 
     it('should attach aria-required to select', compileComponent('<select ng-model="val" required></select>', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('true');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('false');
-    }));
+    }, verifyAttached));
 
     it('should attach aria-required to ngRequired', compileComponent('<input ng-model="val" ng-required="true">', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('true');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('false');
-    }));
+    }, verifyAttached));
 
     it('should not attach itself to input if aria-required is already present', compileComponent('<input ng-model="val" required aria-required="userSetValue">', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-    }));
+    }, verifyNotAttached));
 
     it('should not attach itself to textarea if aria-required is already present', compileComponent('<textarea ng-model="val" required aria-required="userSetValue"></textarea>', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-    }));
+    }, verifyNotAttached));
 
     it('should not attach itself to select if aria-required is already present', compileComponent('<select ng-model="val" required aria-required="userSetValue"></select>', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-    }));
+    }, verifyNotAttached));
 
     it('should not attach itself to ngRequired if aria-required is already present', compileComponent('<input ng-model="val" ng-required="true" aria-required="userSetValue">', {
-    }, (Scope scope, dom.Element element) {
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-
-      scope.apply("val='input is valid now'");
-      expect(element.getAttribute('aria-required')).toEqual('userSetValue');
-    }));
+    }, verifyNotAttached));
 
   });
 }

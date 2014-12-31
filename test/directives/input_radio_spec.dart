@@ -17,36 +17,42 @@ void testInputRadioDirectives() {
              );
     });
 
+
+    void verifyAttached(Scope scope, dom.ElementList elements) {
+      expect(elements.elementAt(0)).toHaveAttribute('aria-checked', 'true');
+      expect(elements.elementAt(1)).toHaveAttribute('aria-checked', 'false');
+
+      scope.apply('val = "two"');
+      expect(elements.elementAt(0)).toHaveAttribute('aria-checked', 'false');
+      expect(elements.elementAt(1)).toHaveAttribute('aria-checked', 'true');
+    }
+
+    void verifyNotAttached(Scope scope, dom.ElementList elements) {
+      expect(elements.elementAt(0)).toHaveAttribute('aria-checked', 'userSetValue');
+      expect(elements.elementAt(1)).toHaveAttribute('aria-checked', 'userSetValue');
+      scope.apply('val = "one"');
+      expect(elements.elementAt(0)).toHaveAttribute('aria-checked', 'userSetValue');
+      expect(elements.elementAt(1)).toHaveAttribute('aria-checked', 'userSetValue');
+
+      scope.apply('val = "two"');
+      expect(elements.elementAt(0)).toHaveAttribute('aria-checked', 'userSetValue');
+      expect(elements.elementAt(1)).toHaveAttribute('aria-checked', 'userSetValue');
+    }
+
     describe('radio', () {
       it('should attach itself to input type="radio"', compileComponent(
           '<div><input type="radio" ng-model="val" value="one"> <input type="radio" ng-model="val" value="two"></div>',
           {
               'val': 'one'
           }, (Scope scope, dom.HtmlElement element) {
-            dom.ElementList elements = element.querySelectorAll('input');
-            expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('true');
-            expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('false');
-
-            scope.apply('val = "two"');
-            expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('false');
-            expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('true');
+            verifyAttached(scope, element.querySelectorAll('input'));
           }));
 
       it('should not attach itself if an aria-checked value is already present', compileComponent(
           '<div><input type="radio" ng-model="val" value="one" aria-checked="userSetValue">' +
           '<input type="radio" ng-model="val" value="two" aria-checked="userSetValue"></div>', {
           }, (Scope scope, dom.HtmlElement element) {
-            dom.ElementList elements = element.querySelectorAll('input');
-            expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-            expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-
-            scope.apply('val = "one"');
-            expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-            expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-
-            scope.apply('val = "two"');
-            expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-            expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
+            verifyNotAttached(scope, element.querySelectorAll('input'));
           }));
     });
 
@@ -56,29 +62,14 @@ void testInputRadioDirectives() {
                           '<div role="radio" ng-model="val" value="two"></div></div>', {
              'val': 'one'
          }, (Scope scope, dom.HtmlElement element) {
-           dom.ElementList elements = element.querySelectorAll('div');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('true');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('false');
-           scope.apply('val = "two"');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('false');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('true');
-
+           verifyAttached(scope, element.querySelectorAll('div'));
          }));
 
       it('should not attach itself if an aria-checked value is already present',
          compileComponent('<div><div role="radio" ng-model="val" value="one" aria-checked="userSetValue"></div>' +
                           '<div role="radio" ng-model="val" value="two" aria-checked="userSetValue"></div></div>', {
          }, (Scope scope, dom.HtmlElement element) {
-           dom.ElementList elements = element.querySelectorAll('div');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-           scope.apply('val = "one"');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-           scope.apply('val = "two"');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-
+           verifyNotAttached(scope, element.querySelectorAll('div'));
          }));
     });
 
@@ -88,13 +79,7 @@ void testInputRadioDirectives() {
                           '<div role="menuitemradio" ng-model="val" value="two"></div></div>', {
              'val': 'one'
          }, (Scope scope, dom.HtmlElement element) {
-           dom.ElementList elements = element.querySelectorAll('div');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('true');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('false');
-           scope.apply('val = "two"');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('false');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('true');
-
+           verifyAttached(scope, element.querySelectorAll('div'));
          }));
 
       it('should not attach itself if an aria-checked value is already present',
@@ -102,16 +87,7 @@ void testInputRadioDirectives() {
                           '<div role="menuitemradio" ng-model="val" value="two" aria-checked="userSetValue"></div></div>',
                           {
                           }, (Scope scope, dom.HtmlElement element) {
-           dom.ElementList elements = element.querySelectorAll('div');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-           scope.apply('val = "one"');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-           scope.apply('val = "two"');
-           expect(elements.elementAt(0).getAttribute('aria-checked')).toEqual('userSetValue');
-           expect(elements.elementAt(1).getAttribute('aria-checked')).toEqual('userSetValue');
-
+           verifyNotAttached(scope, element.querySelectorAll('div'));
          }));
     });
   });

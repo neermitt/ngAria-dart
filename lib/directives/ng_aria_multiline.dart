@@ -8,12 +8,13 @@ part of angular.aria.directives;
 
 @Decorator(selector: '[role=textbox][ng-model]')
 @Decorator(selector: 'textarea[ng-model]')
-class NgAriaMultiline {
+class NgAriaMultiline extends NgAriaDirective implements AttachAware {
 
-  NgAriaMultiline(dom.Element element, Scope scope) {
-    if (!element.attributes.containsKey('aria-multiline')) {
-      scope.domWrite(() => element.setAttribute('aria-multiline', 'true'));
-    }
+  NgAriaMultiline(dom.Element element, Scope scope) : super(element, scope, 'aria-multiline') {
+  }
+
+  void attach() {
+    _setAttributeValue('true');
   }
 
 }

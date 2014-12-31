@@ -18,53 +18,41 @@ void testAriaValueDirectives() {
       );
     });
 
+    void verifyAttached(Scope scope, dom.HtmlElement element) {
+      expect(element).toHaveAttribute('aria-valuenow', '50');
+      expect(element).toHaveAttribute('aria-valuemin', '0');
+      expect(element).toHaveAttribute('aria-valuemax', '100');
+    }
+
+    void verifyNotAttached(Scope scope, dom.HtmlElement element) {
+      expect(element).toHaveAttribute('aria-valuenow', 'userSetValue1');
+      expect(element).toHaveAttribute('aria-valuemin', 'userSetValue2');
+      expect(element).toHaveAttribute('aria-valuemax', 'userSetValue3');
+    }
+
     describe('input[type=range]', () {
       it('should attach to input type="range"', compileComponent('<input type="range" ng-model="val" min="0" max="100">', {
           'val': 50
-      }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-valuenow')).toEqual('50');
-        expect(element.getAttribute('aria-valuemin')).toEqual('0');
-        expect(element.getAttribute('aria-valuemax')).toEqual('100');
-      }));
+      }, verifyAttached));
       it('should not attach if aria-value* is already present', compileComponent('<input type="range" ng-model="val" min="0" max="100" aria-valuenow="userSetValue1" aria-valuemin="userSetValue2" aria-valuemax="userSetValue3">', {
           'val': 50
-      }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-valuenow')).toEqual('userSetValue1');
-        expect(element.getAttribute('aria-valuemin')).toEqual('userSetValue2');
-        expect(element.getAttribute('aria-valuemax')).toEqual('userSetValue3');
-      }));
+      }, verifyNotAttached));
     });
     describe('role="progressbar"', () {
       it('should attach to input type="range"', compileComponent('<div role="progressbar" ng-model="val" min="0" max="100"></div>', {
           'val': 50
-      }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-valuenow')).toEqual('50');
-        expect(element.getAttribute('aria-valuemin')).toEqual('0');
-        expect(element.getAttribute('aria-valuemax')).toEqual('100');
-      }));
+      }, verifyAttached));
       it('should not attach if aria-value* is already present', compileComponent('<div role="progressbar" ng-model="val" min="0" max="100" aria-valuenow="userSetValue1" aria-valuemin="userSetValue2" aria-valuemax="userSetValue3"></div>', {
           'val': 50
-      }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-valuenow')).toEqual('userSetValue1');
-        expect(element.getAttribute('aria-valuemin')).toEqual('userSetValue2');
-        expect(element.getAttribute('aria-valuemax')).toEqual('userSetValue3');
-      }));
+      }, verifyNotAttached));
     });
     describe('role="slider"', () {
       it('should attach to input type="range"', compileComponent('<div role="slider" ng-model="val" min="0" max="100"></div>', {
           'val': 50
-      }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-valuenow')).toEqual('50');
-        expect(element.getAttribute('aria-valuemin')).toEqual('0');
-        expect(element.getAttribute('aria-valuemax')).toEqual('100');
-      }));
+      }, verifyAttached));
       it('should not attach if aria-value* is already present', compileComponent('<div role="slider" ng-model="val" min="0" max="100" aria-valuenow="userSetValue1" aria-valuemin="userSetValue2" aria-valuemax="userSetValue3"></div>', {
           'val': 50
-      }, (Scope scope, dom.HtmlElement element) {
-        expect(element.getAttribute('aria-valuenow')).toEqual('userSetValue1');
-        expect(element.getAttribute('aria-valuemin')).toEqual('userSetValue2');
-        expect(element.getAttribute('aria-valuemax')).toEqual('userSetValue3');
-      }));
+      }, verifyNotAttached));
     });
   });
 }

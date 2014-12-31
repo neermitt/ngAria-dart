@@ -5,38 +5,22 @@
  */
 part of angular.aria.directives;
 
-@Decorator(selector: '[ng-hide]')
-class NgHide {
-  final dom.Element element;
-  final Scope scope;
-  bool userSpecified;
+@Decorator(selector: '[ng-hide]', map: const {
+    'ng-hide': '=>value'
+})
+class NgHide extends NgAriaDirective {
 
-  NgHide(dom.Element this.element, Scope this.scope) {
-    userSpecified = element.attributes.containsKey('aria-hidden');
-  }
-
-  @NgOneWay('ng-hide')
-  set hide(value) {
-    if (!userSpecified) {
-      scope.rootScope.domWrite(() =>element.setAttribute('aria-hidden', toBool(value).toString()));
-    }
-  }
+  NgHide(dom.Element element, Scope scope): super(element, scope, 'aria-hidden');
 }
 
-@Decorator(selector: '[ng-show]')
-class NgShow {
-  final dom.Element element;
-  final Scope scope;
-  bool userSpecified;
+@Decorator(selector: '[ng-show]', map: const {
+    'ng-show': '=>value'
+})
+class NgShow extends NgAriaDirective {
 
-  NgShow(dom.Element this.element, Scope this.scope) {
-    userSpecified = element.attributes.containsKey('aria-hidden');
-  }
+  NgShow(dom.Element element, Scope scope): super(element, scope, 'aria-hidden');
 
-  @NgOneWay('ng-show')
-  set show(value) {
-    if (!userSpecified) {
-      scope.rootScope.domWrite(() =>element.setAttribute('aria-hidden', (!toBool(value)).toString()));
-    }
+  String resolveValue(value) {
+    return (!value).toString();
   }
 }

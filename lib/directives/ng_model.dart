@@ -7,19 +7,12 @@
 part of angular.aria.directives;
 
 @Decorator(selector:'[ng-model]')
-class NgModelAria {
+class NgModelAria extends NgAriaWatchDirective {
 
-  NgModelAria(dom.Element element, Scope scope, NgModel model) {
+  NgModelAria(dom.Element element, Scope scope, NgModel model): super(element, scope, model, 'aria-invalid') {
+  }
 
-    if(!element.attributes.containsKey('aria-invalid')) {
-
-      Scope childScope = scope.createProtoChild();
-
-      childScope.context['isInvalid'] = () => model.invalid;
-
-      childScope.watch('isInvalid()', (value, _) {
-        scope.domWrite(() => element.setAttribute('aria-invalid', toBool(value).toString()));
-      }, canChangeModel: false);
-    }
+  dynamic get expression {
+    return _model.invalid;
   }
 }
